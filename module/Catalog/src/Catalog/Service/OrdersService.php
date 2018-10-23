@@ -294,7 +294,11 @@ class OrdersService extends AbstractService
 
         $outgo= 0;
         foreach ($this->execute($select) as $row) {
-            $outgo += $row['b_price'] * $row['count'];
+            if($row['b_price']) {
+                $outgo += $row['b_price'] * $row['count'];
+            } else {
+                $outgo += ($row['c_price'] * 0.6) * $row['count'];
+            }
         }
 
         return (int) $outgo;
