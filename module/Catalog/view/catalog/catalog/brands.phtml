@@ -1,0 +1,27 @@
+<?php echo $this->header() ?>
+
+<div class="block">
+    <div class="wrapper">
+        <?php
+        $html =
+            '<div class="brands-list">';
+
+        foreach ($brands as $brand) {
+            $html .=
+                '<div class="brand">'
+                    .'<a href="' . $brand->getUrl() . '" class="pic">'
+                        .'<img src="' . $brand->getPlugin('image')->getImage('s') . '" alt="' . $brand->get('name') . '">'
+                    .'</a>'
+                    .'<a href="' . $brand->getUrl() . '" class="name">' . $brand->get('name') . '</a>'
+                .'</div>';
+        }
+
+        $html .=
+                '<div class="clear"></div>'
+            .'</div>';
+
+        echo $html;
+        ?>
+
+    </div>
+</div>

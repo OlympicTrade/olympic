@@ -1,0 +1,116 @@
+<?php echo $this->headerBlack() ?>
+
+<?php echo $this->BlogTypes($blogs, $blog->getId()) ?>
+
+<?php /*
+<div class="block blog-block blog-types">
+    <div class="wrapper">
+    <?php
+    $html = '';
+
+    $html .=
+        '<a class="type back" href="/blog/"><i class="fas fa-arrow-left"></i> назад в блог</a>'
+        .'<a class="type' . ($type ? '' : ' active') . '" href="' . $blog->getUrl() . '">Показать все</a>';
+
+    foreach ($blog->getPlugin('types') as $rType) {
+        if($type && $type->getId() == $rType->getId()) {
+            $html .=
+                '<a class="type active" href="' . ($blog->getUrl() . $rType->get('url') . '/') . '">' . $rType->get('name') . '</a>';
+        } else {
+            $html .=
+                '<a class="type" href="' . ($blog->getUrl() . $rType->get('url') . '/') . '">' . $rType->get('name') . '</a>';
+        }
+    }
+    echo $html;
+    ?>
+    </div>
+</div>
+*/ ?>
+
+<div class="block blog-block blog-articles">
+    <div class="wrapper">
+        <div class="container">
+            <div class="col-left">
+                <div class="articles-list">
+                    <?php echo $this->articlesList($articles) ?>
+                </div>
+            </div>
+            <div class="col-right blog-sidebar">
+                <div class="slider">
+                    <?php echo
+                         $this->blogWidgets('articles', ['articles' => $wArticles])
+                        .$this->blogWidgets('products', ['products' => $wProducts]);
+                    ?>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var sidebar = $('.blog-sidebar').sidebar({
+        margin: 20,
+        nav: $('#nav')
+    });
+
+    var paginator = $('.blog-articles .articles-list').paginator({
+        url: '<?php echo $blog->getUrl() ?>',
+        urlParams: {}
+    });
+    paginator.on('update', function() {
+        sidebar.update();
+    });
+</script>
+
+<?php /*
+<script>
+    var list = $('.articles-list');
+    var paginator;
+
+    var loadingTimer = null;
+    $(window).on('scroll', function () {
+        clearTimeout(loadingTimer);
+        loadingTimer = setTimeout(function() {
+            loadRows();
+        }, 250);
+    });
+    loadRows();
+
+    function loadRows() {
+        paginator = $('.paginator', list);
+        if(!paginator.length) {
+            return;
+        }
+
+        var url = $.aptero.url();
+        url.setPath('/blog/');
+        url.setParams({page: paginator.data('page')});
+
+        var loadLine = $(window).scrollTop() + ($(window).height()) + 200;
+        paginator.remove();
+
+        $.ajax({
+            url: url.getUrl(),
+            success: function (resp) {
+                var html = $(resp.html.articles);
+                html.appendTo(list);
+                paginator = $('.paginator', list);
+
+                if(paginator.length && paginator && loadLine >= paginator.offset().top) {
+                    loadRows();
+                }
+            }
+        });
+    }
+
+    $.ajax({
+        url: ''
+    });
+   $('.articles-list').BlocksIt({
+        numOfCol: 3,
+        offsetX: 10,
+        offsetY: 20,
+        blockElement: '.article'
+    });
+</script> */ ?>

@@ -1,0 +1,60 @@
+</div>
+<div id="footer" class="block">
+	<ul class="menu">
+        <li><a href="/delivery/">Доставка и оплата</a></li>
+        <li><a href="/catalog/">Каталог</a></li>
+    </ul>
+    <div class="clear"></div>
+    
+    <ul class="contacts">
+        <li class="row"><a href="<?php echo $this->link($contacts->get('phone_1')) ?>"><i class="fas fa-phone"></i> <?php echo $contacts->get('phone_1') ?></a></li>
+        <li class="row"><a href="<?php echo $this->link($contacts->get('email')) ?>"><i class="far fa-envelope"></i> <?php echo $contacts->get('email') ?></a></li>
+        <?php /*<li class="row"><a href="<?php echo $contacts->get('vkontakte') ?>"><i class="fa fa-vk"></i> myprotein_buy</a></li>*/ ?>
+    </ul>
+</div>
+
+<?php
+echo $this->settings->get('html_body');
+?>
+
+<?php
+$jsonLd = [
+    '@context'  => 'http://schema.org',
+    '@type'     => 'Organization',
+    'url'       => $settings->get('domain'),
+    'name'      => $settings->get('site_name'),
+    'logo'      => $settings->get('domain') . '/images/logo-b.png',
+    'telephone' => $contacts->get('phone_1'),
+    'email'     => $contacts->get('email'),
+    'contactPoint' => (object) [
+        '@type'       => 'ContactPoint',
+        'telephone'   => $contacts->get('phone_1'),
+        'contactType' => 'sales',
+        'areaServed'  => ['RU']
+    ],
+    'sameAs' => [
+        $contacts->get('vkontakte')
+    ],
+];
+?>
+
+<script type="application/ld+json">
+<?php echo \Zend\Json\Json::encode((object) $jsonLd); ?>
+</script>
+
+<?php
+$jsonLd = [
+    '@context'  => 'http://schema.org',
+    '@type'     => 'WebSite',
+    'url'       => $settings->get('domain'),
+    'name'      => $settings->get('site_name'),
+    'potentialAction' => (object) [
+        '@type'       => 'SearchAction',
+        'target'      => $settings->get('domain') . '/catalog/search/?query={search_term}',
+        'query-input' => 'required name=search_term',
+    ],
+];
+?>
+<noscript><div><img src="https://mc.yandex.ru/watch/44381401" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</body>
+</html>

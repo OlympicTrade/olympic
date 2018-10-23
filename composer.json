@@ -1,0 +1,16 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Aptero\\": "local/Aptero/",
+            "SocialAuther\\": "local/SocialAuther/"
+        }
+    },
+
+    "require": {
+        "php": ">=7.0",
+        "zendframework/zendframework": "2.*",
+        "ghislainf/zf2-whoops": "dev-master",
+        "nixsolutions/yandex-php-library": "dev-master",
+        "phpoffice/phpspreadsheet": "dev-master"
+    }
+}

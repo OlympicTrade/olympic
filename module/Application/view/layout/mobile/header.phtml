@@ -1,0 +1,164 @@
+<?php
+$this->generateMeta(true);
+
+$version = \Application\Model\Settings::getInstance()->get('html_css_js_version');
+
+$this->headLink()
+    ->prependStylesheet('/mobile/css/compress-' . $version . '.css')
+    //->prependStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css')
+    ->prependStylesheet('//fonts.googleapis.com/css?family=Roboto+Condensed:400,700&subset=cyrillic');
+
+$this->headScript()
+    ->prependFile('/mobile/js/compress-' . $version . '.js')
+    ->prependFile('//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js')
+    ->prependFile('//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    //->prependFile('/engine/js/jquery/jquery-ui.js')
+    //->prependFile('/engine/js/jquery/jquery.js')
+
+    ->prependFile('//use.fontawesome.com/releases/v5.0.6/js/all.js', null, ['async' => true]);
+
+if(MODE != 'dev') {
+    $this->headScript()
+        ->prependFile('/js/counters/chat.js', null, ['async' => true])
+        ->prependFile('/js/counters/yandex.js', null, ['async' => true])
+        ->prependFile('/js/counters/google.js', null, ['async' => true]);
+}
+?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#d1302d">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="/images/logos/16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/logos/32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/logos/96.png" sizes="96x96">
+
+    <?php echo $this->headTitle() . "\n";
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript();
+    echo $this->settings->get('html_head')
+    ?>
+</head>
+<body>
+<?php if(empty($_COOKIE['greeting']) && isset($_COOKIE['metric']) && $_COOKIE['metric'] == 'init') { ?>
+    <script>
+        $.fancybox.open({
+            src: '/greeting/',
+            type: 'ajax',
+            opts: {
+                ajax: {
+                    settings: {}
+                },
+                afterLoad: function(e) {
+                    initElements(e.$refs.slider);
+                }
+            }
+        });
+    </script>
+    <?php
+}
+setcookie("greeting", 1, time()+(31104000), '/');
+?>
+
+<div id="fog"></div>
+
+<div id="header">
+    <a href="/" class="item logo"></a>
+
+    <a href="/cart/" class="cart">
+        <div class="trigger">
+            <div class="icon">
+                <div class="counter"></div>
+            </div>
+        </div>
+    </a>
+
+    <div class="nav">
+        <div class="trigger">
+            <div class="icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="box">
+            <ul class="menu">
+                <li class="search" >
+                    <input class="query" placeholder="Поиск">
+                </li>
+                <li>
+                    <a href="/catalog/">Спортивное питание</a>
+                    <ul>
+                        <li class="back"><span>Назад</span></li>
+                        <?php
+                        $foodCatalog = \Catalog\Model\Catalog::getEntityCollection();
+                        $foodCatalog->setParentId(0);
+                        $foodCatalog->select()->where->notEqualTo('id', 17);
+
+                        echo $this->mobileCatalogMenu(['ul' => false, 'catalog' => $foodCatalog]);
+                        ?>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/catalog/sportswear/">Одежда</a>
+                    <ul>
+                        <li class="back"><span>Назад</span></li>
+                        <?php
+                        $wearCatalog = \Catalog\Model\Catalog::getEntityCollection();
+                        $wearCatalog->setParentId(17);
+
+                        echo $this->mobileCatalogMenu(['ul' => false, 'catalog' => $wearCatalog]);
+                        ?>
+                    </ul>
+                </li>
+                <li><a href="/delivery/">Доставка и самовывоз</a></li>
+                <li><a href="/order/order-status/" class="popup">Что с моим заказом?</a></li>
+                <li class="region">
+                    <div>Ваш регион:</div>
+                    <span class="region-name"><?php echo \Delivery\Model\Delivery::getInstance()->getCity()->get('name') ?></span>
+                    <a href="/regions/" class="popup">изменить</a>
+                </li>
+            </ul>
+
+            <div class="contacts">
+                <div class="row">
+                    <a href="<?php echo $this->link($contacts->get('email')) ?>"><i class="far fa-envelope"></i> <?php echo $contacts->get('email') ?></a>
+                </div>
+                <div class="row">
+                    <a href="<?php echo $this->link($contacts->get('phone_1')) ?>"><i class="fa fa-phone"></i> <?php echo $contacts->get('phone_1') ?></a>
+                </div>
+                <div class="row">
+                    <a href="<?php echo $contacts->get('vkontakte') ?>"><i class="fa fa-vk"></i> <?php echo $contacts->get('vkontakte') ?></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php /*
+    <div class="item menu" data-box="menu"><i class="fa fa-bars"></i></div>
+    <div class="item search" data-box="search"><i class="fa fa-search"></i></div>
+    <a href="/cart/" class="item cart">
+        <div class="counter"></div>
+    </a>
+
+    <div class="box menu">
+        <ul>
+            <li><a href="/delivery/">Доставка и оплата</a></li>
+            <li class="title"></li>
+            <?php echo $this->catalogMenu(['ul' => false, 'sub' => false]) ?>
+        </ul>
+    </div>
+
+    <div class="box search">
+        <form>
+            <input name="query" placeholder="Поиск" class="std-input query">
+            <button type="submit" class="sbm"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    */ ?>
+</div>
+
+<div id="container">

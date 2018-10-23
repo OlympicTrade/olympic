@@ -1,0 +1,64 @@
+<?php echo $this->header() ?>
+
+<div class="block">
+    <div class="wrapper">
+        <form action="/contacts/" class="contacts-form contacts-view">
+            <div class="form-box">
+                <div class="header">Отправить сообщение</div>
+                <div class="col-l">
+                    <div class="row">
+                        <div class="element">
+                            <div class="label">Имя</div>
+                            <input type="text" name="name" class="std-input" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="element">
+                            <div class="label">Телефон или E-mail</div>
+                            <input type="text" name="phone" class="std-input" value="">
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button type="submit" class="btn orange">Отправить <i class="fa fa-angle-right"></i></button>
+                    </div>
+                </div>
+                <div class="col-r">
+                    <div class="row">
+                        <div class="element">
+                            <div class="label">Сообщение</div>
+                            <textarea name="question"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="success-box">
+                <div class="sb-title">
+                    Сообщение отправлено
+                </div>
+                <div class="sb-desc">
+                    Мы сделаем все вожзможное для решения вашей проблемы и известим вас о результатах.
+                </div>
+            </div>
+            <div class="clear"></div>
+        </form>
+    
+	    <div class="contacts-company">
+		    <div class="title">Юридическое лицо</div>
+			ИП Кукин Роман Олегович<br>
+			ОГРНИП 317784700234399<br>
+			ИНН 780728152802<br>
+			ОКПО 0119699621
+	    </div>
+    </div>
+</div>
+
+<script>
+    var form = $('.contacts-form');
+
+    form.formSubmit({
+        success: function(resp) {
+            $('.form-box', form).css({display: 'none'});
+            $('.success-box', form).fadeIn(300);
+        }
+    });
+</script>

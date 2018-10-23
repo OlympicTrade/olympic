@@ -1,0 +1,16 @@
+<?php echo $this->BlogTypes($blogs, $blog->getId()) ?>
+
+<div class="block blog-block blog-articles">
+    <div class="wrapper">
+        <div class="articles-list">
+            <?php echo $this->articlesList($articles, true) ?>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$('.blog-articles .articles-list').paginator({
+    url: '<?php echo $blog->getUrl() ?>',
+    urlParams: {}
+});
+</script>

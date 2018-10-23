@@ -1,0 +1,26 @@
+<?php
+$html = '<div class="block tabs product-tabs" id="product-tabs">';
+
+$html .=
+    '<div class="tabs-header">';
+foreach($tabs as $tab) {
+    $url = $product->getUrl() . ($tab['url'] ? $tab['url'] . '/' : '');
+    $html .=
+        '<a class="tab tab-' . $tab['tab'] . ($tab['html'] ? ' active' : '') . '" href="' . $url . '" data-load="' . $url . '">' . $tab['header'] . '</a>';
+}
+$html .=
+    '</div>';
+
+$html .=
+    '<div class="tabs-body">';
+foreach($tabs as $tab) {
+    $html .=
+        '<div class="tab">' . $tab['html'] . '</div>';
+}
+$html .=
+    '</div>';
+
+$html .=
+    '</div>';
+
+echo $html;

@@ -1,0 +1,124 @@
+<?php echo $this->headerBlack() ?>
+
+<div class="block blog-block blog-exercises">
+    <div class="wrapper">
+        <div class="container">
+            <div class="col-left">
+                <?php
+                $html = '<div class="exercises-view">';
+
+                //$html .= '<h1>' . $exercise->get('name') . '</h1>';
+
+                $html .=
+                    '<div class="video-box">'
+                        .'<div class="video">'
+                            .'<video width="480" height="268">'
+                                .'<source src="' . ($male ? $exercise->get('video_male') : $exercise->get('video_female')) . '" type="video/mp4">'
+                            .'</video>'
+                        .'</div>';
+
+                $html .=
+                    '<div class="info">';
+
+                $typesArr = [];
+                $typeId = \Blog\Model\ExerciseTypes::TYPE_MUSCLES;
+                foreach ($exercise->getPlugin('types', ['type_id' => $typeId], true) as $type) {
+                    $typesArr[] = '<a href="' . $type->getUrl() . '">' . $type->get('name') . '</a>';
+                }
+                $html .=
+                    '<div class="row">' . \Blog\Model\ExerciseTypes::$types[$typeId] . ': ' . implode(', ', $typesArr) . '</div>';
+
+                $typesArr = [];
+                $typeId = \Blog\Model\ExerciseTypes::TYPE_INVENTORY;
+                foreach ($exercise->getPlugin('types', ['type_id' => $typeId], true) as $type) {
+                    $typesArr[] = '<a href="' . $type->getUrl() . '">' . $type->get('name') . '</a>';
+                }
+                $html .=
+                    '<div class="row">' . \Blog\Model\ExerciseTypes::$types[$typeId] . ': ' . implode(', ', $typesArr) . '</div>';
+
+                $typesArr = [];
+                $typeId = \Blog\Model\ExerciseTypes::TYPE_MECHANICS;
+                foreach ($exercise->getPlugin('types', ['type_id' => $typeId], true) as $type) {
+                    $typesArr[] = '<a href="' . $type->getUrl() . '">' . $type->get('name') . '</a>';
+                }
+                $html .=
+                    '<div class="row">' . \Blog\Model\ExerciseTypes::$types[$typeId] . ': ' . implode(', ', $typesArr) . '</div>';
+
+                $html .=
+                    '<div class="row">Уровень: ' . \Blog\Model\Exercise::$levels[$exercise->get('level')] . '</div>';
+
+                $html .=
+                        '<a href="' . $exercise->getUrl(!$male) . '" class="btn orange">Паказать вариант для ' . ($male ? 'женщин' : 'мужчин') . '</a>'
+                        .'</div>'
+                        .'<div class="clear"></div>'
+                    .'</div>';
+
+                $html .=
+                    '<h2>' . $exercise->get('name') . ' - фото</h2>';
+
+                $html .=
+                    '<div class="view-pics">';
+                $i = 1;
+                foreach ($exercise->getPlugin('images', ['sex' => ($male ? 'm' : 'w'), 'type' => 'photo']) as $image) {
+                    $html .=
+                        '<div class="pic">'
+                            .'<img src="' . $image->getImage('p_m') . '" alt="' . $exercise->get('name') . ' ' . $i++ . '">'
+                        .'</div>';
+                }
+
+                $html .=
+                        '<div class="clear"></div>'
+                    .'</div>'
+                    .'<h2>Техника становой тяги </h2>'
+                    .'<div class="text">'
+                        .'<div class="pic">'
+                            .'<img src="' . $exercise->getPlugin('images', ['sex' => ($male ? 'm' : 'w'), 'type' => 'anatomy'], true)->rewind()->current()->getImage('a_m') . '" alt="' . $exercise->get('name') . ' ' . ' - анатомия">'
+                        .'</div>'
+                        .'<div class="info">'
+                            . $exercise->get('text')
+                        .'</div>'
+                        .'<div class="clear"></div>'
+                    .'</div>'
+
+                    .'<h2>Альтернативные варианты упражнения</h2>'
+
+                    .'<div class="reco">'
+                        .'<div class="exercises-list">'
+                            . $this->exercisesList($exercise->getPlugin('recommended'))
+                        .'</div>'
+                        .'<div class="clear"></div>'
+                    .'</div>';
+
+                echo $html;
+                ?>
+                </div>
+            </div>
+            <div class="col-right blog-sidebar">
+                <div class="slider">
+                    <?php echo
+                        $this->blogWidgets('articles', ['articles' => $wArticles])
+                        .$this->blogWidgets('products', ['products' => $wProducts]);
+                    ?>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/libs/video/video.js"></script>
+<link rel="stylesheet" href="/css/libs/video/style.css" media="screen">
+
+<script>
+    $(function() {
+        $('video').mediaelementplayer({
+            alwaysShowControls: false,
+            videoVolume: 'horizontal',
+            features: ['playpause','progress','volume','fullscreen'],
+            success: function(media, node, player) {
+                media.setCurrentTime(0.4);
+                //media.pause();
+            }
+        });
+    });
+</script>

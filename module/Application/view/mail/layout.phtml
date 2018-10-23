@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Olympic Torch</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+        }
+
+        table { margin:0 auto; padding:0; }
+
+        .bg { background: #f1f1f1 }
+        .wrapper  {padding: 40px 20px }
+        .wrapper2 { max-width: 410px; min-width: 350px; box-shadow: 0 8px 18px rgba(0, 0, 0, .15) }
+
+        @media screen and (max-width:400px) {
+            .bg { background: #fff }
+            .wrapper {padding: 0 }
+            .wrapper2 {box-shadow: none; }
+        }
+    </style>
+</head>
+<body style="padding: 0; margin: 0;">
+
+<table class="bg" border="0" cellpadding="0" width="100%" cellspacing="0">
+    <tr>
+        <td class="wrapper">
+            <table class="wrapper2" border="0" cellpadding="0" width="100%" cellspacing="0" style="">
+                <tr>
+                    <td style="vertical-align: top; background: #fff;">
+                        <table border="0" cellpadding="0" width="100%" cellspacing="0" style="margin:0; padding:0; width: 100%;">
+                            <tr>
+                                <td>
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="width: 100%;">
+                                        <tr>
+                                            <td colspan="2" style="width: 100%; text-align: center; padding: 20px 0 0 0">
+                                                <img style="border:none; outline:none; text-decoration:none;" src="https://olympic-trade.ru/mail/header.png" class="logo">
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="2" height="25" style="height: 25px;"></td></tr>
+                                        <?php echo $this->content; ?>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr><td colspan="2" height="65" style="height: 65px;"></td></tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<div class="panel stock-diffs">
+<?php
+$html = '';
+
+$html .=
+    '<div class="diff">'.
+        '<div class="title">Товары без синхронизации</div>';
+
+foreach ($diffs['products'] as $diff) {
+    $html .=
+        '<div class="row">'.
+            '<a href="' . $diff['url'] . '">' . $diff['name'] . '</a>'.
+        '</div>';
+}
+
+$html .=
+    '</div>';
+
+foreach ($diffs as $diff) {
+    $html .=
+        '<div class="diff">'.
+            '<div class="title">' . $diff['name'] . '</div>'.
+            '<div class="row">'.
+                '<a href="' . $diff['mp_url'] . '">Myprotein</a> | '.
+                '<a href="' . $diff['ot_url'] . '">Olympic Trade</a>'.
+            '</div>';
+
+    if($diff['size']) {
+        $html .=
+            '<div class="title2">Различия в размерах</div>';
+
+        foreach ($diff['size'] as $sizeDiff) {
+            $html .=
+                '<div class="row">'. $sizeDiff . '</div>';
+        }
+    }
+
+    if($diff['taste']) {
+        $html .=
+            '<div class="title2">Различия во вкусах</div>';
+
+        foreach ($diff['taste'] as $tasteDiff) {
+            $html .=
+                '<div class="row">'. $tasteDiff . '</div>';
+        }
+    }
+
+    if($diff['stock']) {
+        $html .=
+            '<div class="title2">Различия на сладе</div>';
+
+        foreach ($diff['stock'] as $stockDiff) {
+            $html .=
+                '<div class="row">'.
+                    '<div class="label">' . $stockDiff['size'] . ' (' . $stockDiff['taste'] . '):</div>' .
+                    'OT => '. $stockDiff['ot'] . ' | MP => ' . $stockDiff['mp'] .
+                '</div>';
+        }
+    }
+
+    $html .=
+        '</div>';
+}
+echo $html;
+?>
+</div>
+
+<style>
+    .stock-diffs {
+
+    }
+
+    .stock-diffs .diff {
+        border: 1px solid #2b2e33;
+        margin-bottom: 26px;
+    }
+
+    .stock-diffs .title{
+        padding: 5px 10px;
+        color: #ffffff;
+        background: #2b2e33;
+    }
+
+    .stock-diffs .title2{
+        padding: 3px 10px;
+        color: #ffffff;
+        background: #44494e;
+    }
+
+    .stock-diffs .row {
+        border-bottom: 1px solid #2b2e33;
+        padding: 4px 10px;
+
+    }
+
+    .stock-diffs .row:hover {
+        background: rgb(218, 233, 238);
+    }
+
+    .stock-diffs .row .label {
+        display: inline-block;
+        width: 200px;
+        margin-right: 10px;
+    }
+
+    .stock-diffs {
+
+    }
+
+    .stock-diffs {
+
+    }
+</style>

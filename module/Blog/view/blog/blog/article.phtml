@@ -1,0 +1,116 @@
+<?php echo $this->headerBlack(['header' => '']) ?>
+
+<div class="block blog-block blog-articles">
+    <div class="wrapper">
+        <div class="container">
+            <div class="col-left">
+                <div class="article-view">
+                    <div class="header">
+                        <img src="<?php echo $article->getPlugin('image')->getImage('m') ?>" alt="<?php echo $article->get('name') ?>">
+                        <div class="title">
+                            <h1><?php echo $article->get('name') ?></h1>
+                            <div class="date"><?php echo $this->date($article->get('time_create')) ?></div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        <?php echo $this->contentRender($article->getPlugin('content')) ?>
+                        <div class="article-comments">
+                            <div id="hypercomments_widget"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="col-right blog-sidebar">
+                <div class="slider">
+                    <?php echo
+                         $this->blogWidgets('articles', ['articles' => $wArticles])
+                        .$this->blogWidgets('products', ['products' => $wProducts]);
+                    ?>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var sidebar = $('.blog-sidebar').sidebar({
+    margin: 20,
+    nav: $('#nav')
+});
+</script>
+
+<?php /*
+<div class="blog-view">
+    <?php echo $this->header(['header' => '']) ?>
+
+    <div class="article-title block" style="background-image: url(<?php echo $article->getPlugin('image')->getImage('hr') ?>)">
+        <h1><?php echo $header ?></h1>
+    </div>
+
+    <div class="block">
+        <div class="wrapper">
+            <div class="article">
+                <?php echo $this->contentRender($article->getPlugin('content')) ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="block article-comments">
+        <div class="wrapper">
+            <div class="article">
+                <div class="comments">
+                    <div class="summary">
+                        <span class="btn orange add-comment popup" href="/blog/add-comment/?aid=<?php echo $article->getId() ?>">Добавить комментарий</span>
+                    </div>
+                    <div class="list">
+                        <?php echo $this->articlesComments($article, $article->getPlugin('comments')) ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<?php
+$settings = \Application\Model\Settings::getInstance();
+
+$jsonLd = [
+    '@context'  => 'http://schema.org',
+    '@type'     => 'NewsArticle',
+    'headline'  => $header,
+    'dateline'  => 'Moscow, RU',
+    'mainEntityOfPage'  => (object) [
+        '@type' => 'WebPage',
+        '@id'   => $settings->get('domain') . $article->getUrl()
+    ],
+    'author'    => (object) [
+        '@type' => 'Person',
+        'name'  => 'Роман Прав'
+    ],
+    'publisher'    => (object) [
+        '@type' => 'Organization',
+        'name'  => $settings->get('site_name'),
+        'logo'  => (object) [
+            '@type' => 'ImageObject',
+            'url'   => $settings->get('domain') . '/images/logo-b.png',
+        ],
+    ],
+    'url'       => $article->getUrl(),
+    'image'     => [
+        $settings->get('domain') . $article->getPlugin('image')->getImage('hr')
+    ],
+    'genre'     => 'Спорт',
+    'keywords'  => '',
+    'datePublished'  => $article->get('time_create'),
+    'dateModified'   => $article->get('time_update'),
+];
+?>
+
+<script type="application/ld+json">
+<?php echo \Zend\Json\Json::encode((object) $jsonLd); ?>
+</script>
+ */ ?>

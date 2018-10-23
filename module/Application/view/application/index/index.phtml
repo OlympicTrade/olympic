@@ -1,0 +1,157 @@
+<div id="container">
+    <?php /*<div class="main-banner">
+        <div class="slide">
+            <div class="event">
+                <a class="box" href="/catalog/event/">
+                    <div class="info">
+                        <div class="row-1"><?php echo $discount->get('row_1') ?></div>
+                        <div class="row-2"><?php echo $discount->get('row_2') ?></div>
+
+                        <div class="discount">
+                            <span>до</span>
+                            <span class="nbr"><?php echo $discount->get('discount') ?></span>
+                            <span>%</span>
+                        </div>
+
+                        <div class="counter">
+                            <div class="title">до конца акции</div>
+                            <div class="tm days"><div>2</div> дней</div>
+                            <div class="tm hours"><div>15</div> часов</div>
+                            <div class="tm min"><div>1</div> мин</div>
+                            <div class="tm sec"><div>35</div> сек</div>
+                        </div>
+
+                        <span class="btn">Посмотреть товары</span>
+                    </div>
+                </a>
+            </div>
+            <div class="news">
+                <div class="owl-carousel owl-theme">
+                    <?php
+                    $html = '';
+
+                    foreach($articles as $article) {
+                        $html .=
+                            '<a href="' . $article->getUrl() . '" class="item" data-id="' . $article->getId() . '">'
+                                .'<div class="box" style="background-image: url(' . $article->getPlugin('image')->getImage('hr') . ')">'
+                                    .'<div class="desc">'
+                                        .'<div class="name">' . $article->get('name') . '</div>'
+                                        .'<div class="info">'
+                                            .'<div class="date">' . $article->getDt()->format('d.m.Y') . '</div>'
+                                            .'<span class="all-news">Читать полностью</span>'
+                                        .'</div>'
+                                    .'</div>'
+                                .'</div>'
+                            .'</a>';
+                    }
+
+                    echo $html;
+                    ?>
+                </div>
+
+                <script>
+                        var box = $('.owl-carousel');
+
+                        box.owlCarousel({
+                            loop: false,
+                            autoplay: true,
+                            autoplayTimeout: 8000,
+                            autoplaySpeed: 800,
+                            autoplayHoverPause: true,
+                            margin: 10,
+                            nav: true,
+                            responsive:{
+                                0:{ items: 1 }
+                            }
+                        });
+
+                        box.on('translated.owl.carousel', function(e) {
+                            if((e.item.count - 2) <= e.item.index) {
+                                loadNews($(e.target).find('.owl-item:last-child'));
+                            }
+                        });
+
+                        function loadNews(el) {
+                            $.ajax({
+                                url: '/blog/get-article-data/',
+                                method: 'post',
+                                data: {
+                                    id: el.children('.item').data('id')
+                                },
+                                success: function(resp) {
+                                    if(!resp.id) { return; }
+                                    box.owlCarousel('add',
+                                        '<span href="' + resp.url + '" class="item" data-id="' + resp.id + '">' +
+                                            '<div class="box" style="background-image: url(' + resp.image + ')">' +
+                                                '<div class="desc">' +
+                                                    '<div class="name">' + resp.name + '</div>' +
+                                                    '<div class="info">' +
+                                                        '<div class="date">' + resp.date + '</div>' +
+                                                        '<span href="#" class="all-news">Читать все новости</span>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</span>').owlCarousel('refresh');
+                                }
+                            });
+                        }
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var counter = $('.main-banner .counter');
+        var date = '<?php echo str_replace('-', '/', $discount->get('date_to')); ?>';
+
+        $('.days', counter).countdown(date, function(event) {
+            $(this).html(event.strftime('<div>%-D</div> дней'));
+        });
+
+        $('.hours', counter).countdown(date, function(event) {
+            $(this).html(event.strftime('<div>%-H</div> часов'));
+        });
+
+        $('.min', counter).countdown(date, function(event) {
+            $(this).html(event.strftime('<div>%-M</div> минут'));
+        });
+
+        $('.sec', counter).countdown(date, function(event) {
+            $(this).html(event.strftime('<div>%-S</div> сек'));
+        });
+    </script> */ ?>
+
+    <div class="popular-categories block">
+        <div class="wrapper">
+            <h2 class="header">Популярные категории</h2>
+
+            <?php echo $this->catalogList($catalog) ?>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="popular-products block">
+        <div class="wrapper">
+            <h2 class="header">Популярные товары</h2>
+
+            <div class="products-list cols-5">
+                <?php echo $this->productsList($products) ?>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="popular-articles block">
+        <div class="shadow"></div>
+
+        <div class="wrapper">
+            <h2 class="header"><a href="/blog/">Новости и обзоры</a></h2>
+            <div class="list">
+                <?php echo $this->articlesList($articles) ?>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

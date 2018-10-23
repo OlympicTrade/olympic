@@ -1,0 +1,39 @@
+<?php echo $this->headerBlack() ?>
+
+<?php //echo $this->BlogTypes($blogs, 0) ?>
+
+<div class="block blog-block blog-articles">
+    <div class="wrapper">
+        <div class="container">
+            <div class="col-left">
+                <div class="articles-list">
+                    <?php echo $this->articlesList($articles) ?>
+                </div>
+            </div>
+            <div class="col-right blog-sidebar">
+                <div class="slider">
+                    <?php echo
+                        $this->blogWidgets('articles', ['articles' => $wArticles])
+                        .$this->blogWidgets('products', ['products' => $wProducts]);
+                    ?>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var sidebar = $('.blog-sidebar').sidebar({
+        margin: 20,
+        nav: $('#nav')
+    });
+
+    var paginator = $('.blog-articles .articles-list').paginator({
+        url: '/blog/',
+        urlParams: {}
+    });
+    paginator.on('update', function() {
+        sidebar.update();
+    });
+</script>

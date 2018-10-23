@@ -1,0 +1,62 @@
+<div class="popup-box popup-request-product">
+    <form class="std-form js-product-request" action="/catalog/product-request/" method="post">
+        <div class="form-box">
+            <div class="header">
+                <div class="title">Заявка на товар</div>
+                <div class="desc">Мы закажем товар и уведомим вас о поступлении</div>
+            </div>
+            <div class="body">
+                <input type="hidden" value="<?php echo $count ?>" name="count">
+                <input type="hidden" value="<?php echo $product->getId() ?>" name="pid">
+                <input type="hidden" value="<?php echo $product->get('size_id') ?>" name="size_id">
+                <input type="hidden" value="<?php echo $product->get('taste_id') ?>" name="taste_id">
+                <div class="row">
+                    <input name="contact" class="std-input" placeholder="Телефон или E-mail">
+                </div>
+                <div class="btns" style="text-align: center;">
+                    <input type="submit" class="btn blue" value="Оставить заявку">
+                </div>
+            </div>
+        </div>
+        <div class="success-box">
+            <div class="body">
+                <div class="sb-title">Спасибо за заявку</div>
+                <div class="sb-desc">Мы уведомим вас о поступлении товара в магазин</div>
+                <span class="btn" data-fancybox-close>Закрыть</span>
+            </div>
+        </div>
+    </form>
+
+    <style>
+        .popup-request-product .btn {
+            width: 100%;
+            display: block;
+            margin-bottom: 40px;
+        }
+
+        .popup-request-product input {
+            width: 100%;
+        }
+
+        .popup-request-product .notice {
+            text-align: center;
+            color: #555555;
+            margin-bottom: 25px;
+        }
+
+        .popup-request-product {
+            width: 350px;
+        }
+    </style>
+
+    <script>
+        var form = $('.js-product-request');
+        form.formSubmit({
+            success: function(resp, form){
+                $('.form-box', form).fadeOut(200, function(){
+                    $('.success-box', form).fadeIn(200);
+                });
+            }
+        });
+    </script>
+</div>

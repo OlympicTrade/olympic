@@ -1,0 +1,94 @@
+<?php echo $this->header() ?>
+
+<?php
+$inStock = $product->get('stock');
+if($inStock) {
+    $inStockSt = ' style="display: block"';
+} else {
+    $notInStockSt = ' style="display: block"';
+}
+
+$images = $product->getPlugin('images')->load();
+$attrs = $product->getPlugin('attrs');
+?>
+<div class="product-view">
+
+    <?php
+    $html =
+        '<div class="block images' . ($images->count() ? ' gl' : '') . '">'
+            .'<div class="thumbs">';
+
+    $defaultImg = '';
+    if(!$images->count()) {
+        $html .=
+            '<a href="' . $product->getPlugin('image')->getImage('m') . '" data-zoom="' . $product->getPlugin('image')->getImage('hr') . '" class="thumb hide">'
+                .'<img src="' . $product->getPlugin('image')->getImage('s') . '">'
+            .'</a>';
+        $defaultImg = $product->getPlugin('image')->getImage('m');
+    } else {
+        foreach ($product->getPlugin('images')->load() as $image) {
+            $html .=
+                '<a href="' . $image->getImage('m') . '" class="thumb hide" data-zoom="' . $image->getImage('hr') . '" data-taste="' . $image->get('taste_id') . '" data-size="' . $image->get('size_id') . '">'
+                    .'<img src="' . $image->getImage('s') . '">'
+                .'</a>';
+            if(!$defaultImg) {$defaultImg = $image->getImage('m');}
+        }
+    }
+
+    $html .=
+        '</div>'
+        .'<div class="pic hide" data-taste="" data-size="">'
+        .'<img src="' . $defaultImg . '" data-zoom-image="" alt="' . $product->getPlugin('brand')->get('name') . ' ' . $product->get('name') . '">'
+    .'</div>';
+
+    echo $html;
+    ?>
+
+    <?php if($product->get('discount')) { ?>
+        <div class="discount">-<?php echo $product->get('discount') ?>%</div>
+    <?php } ?>
+    </div>
+
+    <div class="info">
+        <div class="block price-box">
+            <span class="price"><span><?php echo $this->price($product->get('price')) ?></span> <i class="fa fa-ruble-sign"></i></span>
+            <?php if($product->get('discount')) { ?>
+                <span class="price_old"><span><?php echo $this->price($product->get('price_old')) ?></span> <i class="fa fa-ruble-sign"></i></span>
+            <?php } ?>
+            <div class="stock">
+                <?php /*<div class="in-stock"<?php echo $inStockSt ?>>в наличии</div>*/ ?>
+                <div class="not not-in-stock"<?php echo $notInStockSt ?>>нет в наличии</div>
+            </div>
+        </div>
+
+        <div class="block type-box">
+            <input type="hidden" value="<?php echo $product->getId() ?>" name="product_id">
+            <?php
+            $propName1 = $attrs->get('prop_name_1') ? $attrs->get('prop_name_1') : 'Размер';
+            echo $this->cartTypeBoxSelect('size_id', $product->getPlugin('size'), $propName1);
+
+            $propName2 = $attrs->get('prop_name_2') ? $attrs->get('prop_name_2') : 'Вкус';
+            echo$this->cartTypeBoxSelect('taste_id', $product->getPlugin('taste'), $propName2);
+            ?>
+
+            <div class="row">
+                <div class="label">Кол-во</div>
+                <div class="std-counter">
+                    <div class="incr"></div>
+                    <input value="1" min="1" max="999" name="count" class="js-count">
+                    <div class="decr"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block btns in-stock"<?php echo $inStockSt ?>>
+            <a href="/cart/" class="btn orange to-cart js-cart-add"><i class="fa fa-shopping-cart"></i> В корзину</a>
+        </div>
+
+        <div class="block btns not-in-stock"<?php echo $notInStockSt ?>>
+            <span class="btn blue js-product-request">Оставить заявку</span>
+        </div>
+
+        <?php include('product-tabs.phtml') ?>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#RewriteCond %{HTTP_HOST} ^myprotein.spb.ru [OR]
+#RewriteCond %{HTTP_HOST} ^www.myprotein.spb.ru [OR]
+RewriteCond %{HTTP_HOST} ^olympic-torch.ru [OR]
+RewriteCond %{HTTP_HOST} ^www.olympic-torch.ru
+RewriteRule (.*)$ https://olympic-trade.ru/$1 [R=301,L]
+
+RewriteCond %{REQUEST_URI}  !\.(php|html?|jpg|gif|png|xlc|docx|js|css|otf|ttf|svg|ico)$
+RewriteRule ^(.*)([^/])$ https://%{HTTP_HOST}/$1$2/ [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^.*$ index.php [NC,L]
+RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
+RewriteRule ^(.*) - [E=BASE:%1]
+RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]
+
+php_value magic_quotes_gpc off
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/javascript text/css application/x-javascript
+<ifmodule mod_gzip.c>
+    mod_gzip_on Yes
+    mod_gzip_item_include file \.js$
+    mod_gzip_item_include file \.css$
+</ifmodule>
+</IfModule>
+php_value default_charset utf-8
+AddType 'text/html; charset=utf-8' .html .htm .shtml

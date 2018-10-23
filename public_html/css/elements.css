@@ -1,0 +1,559 @@
+.btn {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.2s;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 2px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    box-shadow: inset 0 0 0 2px #e1e1e1;
+    background: none;
+    padding: 0 15px;
+}
+
+.btn.small {
+    height: 32px;
+    line-height: 32px;
+}
+
+.btn:hover {
+    box-shadow: inset 0 0 0 2px #ee7923;
+}
+
+.btn i {
+    margin-right: 4px;
+}
+
+.btn.cart-add,
+.btn.orange {
+    box-shadow: inset 0 0 0 2px #ee7923;
+    background: #ee7923;
+    color: #ffffff;
+    transition: all ease .3s;
+}
+
+.btn.blue {
+    box-shadow: inset 0 0 0 2px #13a1f4;
+    background: #13a1f4;
+    color: #ffffff;
+    transition: all ease .3s;
+}
+
+.btn.blue:hover {
+    box-shadow: inset 0 0 0 2px #13a1f4;
+}
+
+.btn.cart-add:hover,
+.btn.orange:hover {
+    background: none;
+    color: #333;
+}
+
+.btn.cart-in,
+.btn.cart-in:hover {
+    background: #1bcd80;
+    box-shadow: inset 0 0 0 2px #1bcd80;
+    color: #ffffff;
+}
+
+.btn.yellow {
+    box-shadow: inset 0 0 0 2px #fbd280;
+    background: #fbd280;
+    color: #333;
+    transition: all ease .3s;
+}
+
+.btn.yellow:hover {
+    background: none;
+}
+
+input, select, textarea {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.std-input,
+.std-select,
+.std-textarea {
+    border: 1px solid #e1e1e1;
+    background: #fff;
+    border-radius: 2px;
+    width: 100%;
+    height: 42px;
+    padding: 0 10px;
+    font-size: 14px;
+    transition: all ease .2s;
+    color: #555555;
+}
+
+.std-input:focus,
+.std-select option,
+.std-textarea:focus {
+    color: #000;
+}
+
+.std-input2,
+.std-select2,
+.std-textarea2 {
+    border: 1px solid #e1e1e1;
+    border-radius: 2px;
+    width: 100%;
+    height: 42px;
+    padding: 0 10px;
+    font-size: 14px;
+    transition: all ease .2s;
+    color: #555555;
+}
+
+.std-select .red,
+.std-select2 .red {
+    color: #9e9e9e;
+}
+
+.std-textarea {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    height: 80px;
+}
+
+.std-table {
+    margin: 0 0 40px 0;
+}
+
+.std-table caption {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.std-table th,
+.std-table td {
+    border: 1px solid #dddddd;
+    padding: 4px 10px;
+    background: #ffffff;
+}
+
+.std-table tr:first-child th,
+.std-table tr:first-child td {
+    background: #f6f6f6;
+    font-weight: 600;
+    color: #000000;
+    /*border-right: none;
+    border-left: none;*/
+    text-align: center;
+}
+
+.std-table tr:first-child th:first-child,
+.std-table tr:first-child td:first-child {
+    border-left: 1px solid #dddddd;
+}
+
+.std-table tr:first-child th:last-child,
+.std-table tr:first-child td:last-child {
+    border-right: 1px solid #dddddd;
+}
+
+.std-table tr th:first-child,
+.std-table tr td:first-child {
+    background: #f6f6f6;
+    font-weight: 600;
+    color: #000000;
+}
+
+.std-table tr th:first-child,
+.std-table tr td:first-child {
+    background: #f6f6f6;
+    font-weight: 600;
+    color: #000000;
+}
+
+.std-form {
+
+}
+
+.std-form .row {
+    margin-bottom: 10px;
+}
+
+.std-form .label {
+    margin-bottom: 2px;
+}
+
+
+.std-form .error {
+    padding: 2px 10px;
+    background: #ee4923;
+    color: #fff;
+    border-radius: 0 0 2px 2px;
+    font-size: 13px;
+}
+
+.std-counter {
+
+}
+.success-box {
+    padding: 20px 0 0 0;
+    text-align: center;
+    display: none;
+}
+
+.sb-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.sb-desc {
+    margin-bottom: 30px;
+}
+
+.sb-btns .btn {
+    width: 100%;
+}
+
+.std-counter {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    width: 100px;
+    height: 38px;
+}
+
+.std-counter input {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0 40% 0 8px;
+    border: 1px solid #e1e1e1;
+    border-radius: 2px;
+    transition: all ease .2s;
+}
+
+.std-counter input:focus {
+    box-shadow: 0 0 5px rgba(238, 121, 35, 0.3);
+    border-color: #ffc69c;
+}
+
+.std-counter .incr,
+.std-counter .decr {
+    position: absolute;
+    right: 0;
+    width: 40%;
+    height: 50%;
+    text-align: center;
+    cursor: pointer;
+    transition: all ease .2s;
+}
+
+.std-counter .incr:hover,
+.std-counter .decr:hover {
+    color: #ee7923;
+}
+
+.std-counter .incr:before,
+.std-counter .decr:before {
+    font-size: 17px;
+    content: "\f106";
+    font-family: "FontAwesome", sans-serif;
+}
+
+.std-counter .decr:before {
+    content: "\f107";
+    font-family: "FontAwesome", sans-serif;
+}
+
+.std-counter .incr {
+    padding-top: 2px;
+    top: 0;
+}
+
+.std-counter .incr.incr-max:before,
+.std-counter .decr.decr-min:before {
+    opacity: 0.5;
+}
+
+.std-counter .decr {
+    padding-top: 0;
+    bottom: 0;
+}
+/*
+.std-counter.s {
+    height: 38px;
+}
+
+.std-counter.s .incr {
+    padding-top: 3px;
+}
+
+.std-counter.s .decr {
+    padding-top: 0;
+}
+*/
+
+.select-group {
+    padding-top: 6px;
+}
+
+.select-group span {
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
+    margin-right: 9px;
+    border: 1px solid #e1e1e1;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 16px;
+    transition: all ease .2s;
+    cursor: pointer;
+}
+
+.select-group span:last-child {
+    margin-right: 0;
+}
+
+.select-group span:hover {
+    border-color: #8e8e8e;
+}
+
+.select-group span.selected {
+    color: #ffffff;
+    background: #ee7923;
+    border-color: #ee7923;
+}
+
+.select-group.color {
+    padding-top: 8px;
+}
+
+.select-group.color span {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    border: none;
+    margin-right: 14px;
+    padding: 0;
+}
+
+.select-group.color span.active {
+    box-shadow: 0 0 0 2px #bbbbbb;
+    border: 2px solid #fff;
+}
+
+.stars {
+    display: inline-block;
+}
+
+.stars .fa-star {
+    margin-right: 3px;
+    display: inline-block;
+    color: #d3d3d3;
+}
+
+
+.stars .fa-star-half:last-child,
+.stars .fa-star:last-child {
+    margin-right: 0;
+}
+
+.stars .fa-star-half,
+.stars .fa-star.full {
+    color: #fbd280;
+}
+
+label.checkbox {
+    display: block;
+    position: relative;
+    padding-left: 22px;
+    cursor: pointer;
+}
+
+label.checkbox:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 14px;
+    height: 14px;
+    background: url(../images/checkbox.png) 0 0;
+}
+
+label.checkbox.checked:before {
+    background-position: 0 -14px;
+}
+
+label.checkbox input {
+    display: none;
+}
+
+label.radio {
+    position: relative;
+    display: block;
+    padding-left: 22px;
+    cursor: pointer;
+    margin-bottom: 6px;
+}
+
+label.radio:last-child {
+    margin-bottom: 0;
+}
+
+label.radio:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    background: url(../images/radio.png) 0 -15px;
+}
+
+label.radio.checked:before {
+    background-position: 0 0;
+}
+
+label.radio input {
+    display: none;
+}
+
+.element {
+    position: relative;
+    border-radius: 2px;
+    border: 1px solid #e1e1e1;
+    width: 100%;
+    font-size: 14px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.element.invalid {
+    background: #ffe0d7;
+}
+
+.element .error {
+    display: none;
+}
+
+.element .label {
+    position: absolute;
+    left: 12px;
+    font-size: 16px;
+    top: 14px;
+    color: #6e6e6e;
+    transition: all ease .2s;
+    z-index: 5;
+}
+
+.element.not-empty .label,
+.element.focus .label {
+    left: 10px;
+    top: 5px;
+    font-size: 13px;
+}
+
+.element input,
+.element textarea,
+.element select {
+    border: none;
+    position: relative;
+    z-index: 10;
+    height: 48px;
+    padding: 20px 10px 0 10px;
+    font-size: 15px;
+    background: none;
+    width: 100%;
+}
+
+.element textarea {
+    height: 100px;
+    padding-top: 30px;
+}
+
+.element.focus textarea {
+
+}
+
+.ui-datepicker {
+    background: #FFFFFF;
+    padding: 12px;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 10 !important;
+}
+
+.ui-datepicker th {
+    display: none;
+}
+
+.ui-datepicker td {
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    text-align: center;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.ui-datepicker td a {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    display: block;
+}
+
+.ui-datepicker td:hover{
+    background: #dcdcdc;
+}
+
+.ui-datepicker td.ui-datepicker-unselectable,
+.ui-datepicker td.ui-datepicker-unselectable:hover {
+    background: none;
+    color: #a6a6a6;
+}
+
+.ui-datepicker td.ui-datepicker-current-day a,
+.ui-datepicker td.ui-datepicker-current-day:hover a {
+    background: #fbd280;
+}
+
+.ui-datepicker-header {
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 17px;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+    position: absolute;
+    top: 3px;
+    background: url(../images/calendar-arrs.png) no-repeat;
+    width: 9px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.ui-datepicker-prev {
+    left: 10px;
+}
+
+.ui-datepicker-next {
+    right: 10px;
+    background-position: -9px 0;
+}
+
+.ui-datepicker-prev:hover {
+    background-position: 0 -14px;
+}
+
+.ui-datepicker-next:hover {
+    background-position: -9px -14px;
+}

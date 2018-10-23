@@ -1,0 +1,56 @@
+<?php /*
+<?php
+$sliderBg = '/mobile/images/mb-' . (date('d') % 2 + 1) .  '.png';
+?>
+<div class="main-banner" style="background-image: url(<?php echo $sliderBg ?>)">
+    <div class="slide">
+        <div class="info">
+            <div class="box">
+                <div class="row-1"><?php echo $discount->get('row_1') ?></div>
+                <div class="row-2"><?php echo $discount->get('row_2') ?></div>
+                <div class="discount">-<?php echo $discount->get('discount') ?>%</div>
+
+
+                <div class="counter">
+                    <div class="title">до конца акции</div>
+                    <div class="tm days"><div>2</div> дней</div>
+                    <div class="tm hours"><div>15</div> часов</div>
+                    <div class="tm min"><div>1</div> мин</div>
+                    <div class="tm sec"><div>35</div> сек</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var counter = $('.main-banner .counter');
+    var date = '<?php echo str_replace('-', '/', $discount->get('date_to')); ?>';
+
+    $('.days', counter).countdown(date, function(event) {
+        $(this).html(event.strftime('<div>%-d</div> дней'));
+    });
+
+    $('.hours', counter).countdown(date, function(event) {
+        $(this).html(event.strftime('<div>%-H</div> часов'));
+    });
+
+    $('.min', counter).countdown(date, function(event) {
+        $(this).html(event.strftime('<div>%-M</div> минут'));
+    });
+
+    $('.sec', counter).countdown(date, function(event) {
+        $(this).html(event.strftime('<div>%-S</div> сек'));
+    });
+</script>
+*/ ?>
+
+<div class="tabs catalog-tabs">
+    <div class="tabs-header">
+        <span class="tab" data-load="/catalog/nutrition/">Спорт. питание</span>
+        <span class="tab" data-load="/catalog/clothes/">Одежда</span>
+        <div class="clear"></div>
+    </div>
+    <div class="tabs-body"></div>
+</div>
+
+<div class="clear"></div>

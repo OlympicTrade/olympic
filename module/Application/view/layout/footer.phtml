@@ -1,0 +1,136 @@
+<div class="block" id="footer">
+    <div class="wrapper">
+        <div class="top">
+            <a href="/contacts/" class="item email popup">
+                <div class="icon"></div>
+                <div class="title">Остались вопросы?</div>
+                <div class="desc">Отправьте нам на E-mail</div>
+            </a>
+            <div class="item phone">
+                <div class="icon"></div>
+                <div class="title"><?php echo $contacts->get('phone_1') ?></div>
+                <div class="desc">с 10 до 20 ежедневно</div>
+            </div>
+            <a href="/delivery/" class="item delivery">
+                <div class="icon"></div>
+                <div class="title">Доставка и оплата</div>
+                <div class="desc">Курьер и точки выдачи</div>
+            </a>
+            <div class="item soc">
+                <div class="icon"></div>
+				<?php /*
+                <div class="title"><a href="<?php echo $contacts->get('vkontakte') ?>">VK</a> и <a href="<?php echo $contacts->get('facebook') ?>">Facebook</a></div>
+				*/ ?>
+                <div class="title"><a href="<?php echo $contacts->get('vkontakte') ?>">Вконтакте</a></div>
+                <div class="desc">Вступай в группу</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="main">
+            <div class="about">
+                <h3 class="title">О магазине</h3>
+
+                <div class="desc">
+                    Все товары покупаются только у официальных диллеров и подделки на нашем сайте исключены.
+                    <?php /*Мы постоянно
+                    увеличиваем ассортимент, скорость доставки и ставим интересы наших клиентов выше всего на свете.*/ ?>
+                    <br><br>
+                    <?php /*ИП Кукин Роман Олегович, ОГРНИП 317784700234399, ИНН 780728152802, ОКПО 0119699621*/ ?>
+                </div>
+
+                <div class="contacts">
+                    <div class="row">
+                        <i class="fa fa-phone"></i>
+                        <?php echo $contacts->get('phone_1') ?>
+                    </div>
+                    <div class="row">
+                        <i class="far fa-envelope"></i>
+                        <a href="/contacts/" class="popup"><?php echo $contacts->get('email') ?></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu">
+                <div class="sub">
+                    <h4 class="title">Информация</h4>
+
+                    <ul>
+                        <li><a href="/delivery/">Доставка и оплата</a></li>
+                        <li><a href="/return-policy/">Политика возврата</a></li>
+                        <li><a href="/contacts/">Контакты</a></li>
+                    </ul>
+                </div>
+
+                <div class="sub">
+                    <h4 class="title">Каталог</h4>
+
+                    <ul>
+                        <li><a href="/catalog/protein/">Протеин</a></li>
+                        <li><a href="/catalog/amino/">Аминокислоты</a></li>
+                        <li><a href="/catalog/vitamins-and-omega3/">Витамины и омега 3</a></li>
+                    </ul>
+
+                    <a href="/catalog/" class="readmore">показать все</a>
+                </div>
+
+                <div class="sub">
+                    <h4 class="title">Моя учетная запись</h4>
+
+                    <ul>
+                        <li><a href="/cart/">Корзина</a></li>
+                        <li><a href="/orders/">Мои заказы</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<?php
+$jsonLd = [
+    '@context'  => 'http://schema.org',
+    '@type'     => 'Organization',
+    'url'       => $settings->get('domain'),
+    'name'      => $settings->get('site_name'),
+    'logo'      => $settings->get('domain') . '/images/logo-b.png',
+    'telephone' => $contacts->get('phone_1'),
+    'email'     => $contacts->get('email'),
+    'contactPoint' => (object) [
+        '@type'       => 'ContactPoint',
+        'telephone'   => $contacts->get('phone_1'),
+        'contactType' => 'sales',
+        'areaServed'  => ['RU']
+    ],
+    'sameAs' => [
+        $contacts->get('vkontakte')
+    ],
+];
+?>
+
+<script type="application/ld+json">
+<?php echo \Zend\Json\Json::encode((object) $jsonLd); ?>
+</script>
+
+<?php
+$jsonLd = [
+    '@context'  => 'http://schema.org',
+    '@type'     => 'WebSite',
+    'url'       => $settings->get('domain'),
+    'name'      => $settings->get('site_name'),
+    'potentialAction' => (object) [
+        '@type'       => 'SearchAction',
+        'target'      => $settings->get('domain') . '/catalog/search/?query={search_term}',
+        'query-input' => 'required name=search_term',
+    ],
+];
+?>
+
+<script type="application/ld+json">
+<?php echo \Zend\Json\Json::encode((object) $jsonLd); ?>
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/44381401" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</body>
+</html>

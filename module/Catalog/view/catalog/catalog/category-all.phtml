@@ -1,0 +1,30 @@
+<?php echo $this->header(['header' => '']) ?>
+
+<div class="block">
+    <div class="wrapper">
+        <div class="container products-list-main">
+            <div class="content">
+
+                <div class="products-list cols-4">
+                    <?php echo $this->productsList($products) ?>
+                </div>
+            </div>
+            <form class="sidebar filters">
+                <h1><?php echo $header ?></h1>
+
+                <div class="widget catalog">
+                    <div class="body">
+                        <input class="update-url" type="hidden" value="/catalog/event/">
+                    </div>
+                </div>
+
+                <div class="update-box">
+                    <?php echo $this->catalogWidgets('price',  ['data' => $filters['price'], 'min' => $priceMinMax['min'], 'max' => $priceMinMax['max']]) ?>
+                    <?php echo $this->catalogWidgets('sort',   ['data' => $filters['sort']]) ?>
+                    <?php echo $this->catalogWidgets('brands', ['data' => $filters['brand'], 'brands' => $brands]) ?>
+                </div>
+            </form>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

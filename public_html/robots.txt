@@ -1,0 +1,13 @@
+User-Agent: *
+Disallow: /*search
+Disallow: /user/*
+Disallow: *?*
+Allow: *?*page=*
+Disallow: *?*page=*&*
+Disallow: /*sort=
+Host: https://olympic-trade.ru
+Sitemap: https://olympic-trade.ru/sitemap/
+
+User-agent: Googlebot
+Allow: /sitemap/?images=1
+Sitemap: https://olympic-trade.ru/sitemap/?images=1

@@ -1,0 +1,515 @@
+.btn {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.2s;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 2px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    box-shadow: inset 0 0 0 2px #e1e1e1;
+    background: none;
+    padding: 0 15px;
+}
+
+.btn:hover {
+    box-shadow: inset 0 0 0 2px #ee7923;
+}
+
+.btn i {
+    margin-right: 4px;
+}
+
+.btn.cart-add,
+.btn.orange {
+    box-shadow: inset 0 0 0 2px #ee7923;
+    background: #ee7923;
+    color: #ffffff;
+    transition: all ease .3s;
+}
+
+.btn.blue {
+    box-shadow: inset 0 0 0 2px #13a1f4;
+    background: #13a1f4;
+    color: #ffffff;
+    transition: all ease .3s;
+}
+
+.btn.blue:hover {
+    box-shadow: inset 0 0 0 2px #13a1f4;
+}
+
+.btn.cart-add:hover,
+.btn.orange:hover {
+    background: none;
+    color: #333;
+}
+
+.btn.in-cart,
+.btn.in-cart:hover {
+    background: #1bcd80;
+    box-shadow: inset 0 0 0 2px #1bcd80;
+    color: #ffffff;
+}
+
+.btn.yellow {
+    box-shadow: inset 0 0 0 2px #fbd280;
+    background: #fbd280;
+    color: #333;
+    transition: all ease .3s;
+}
+
+.btn.yellow:hover {
+    background: none;
+}
+
+.std-input,
+.std-select,
+.std-textarea {
+    border: 1px solid #cecece;
+    padding: 0 15px;
+    height: 40px;
+    font-size: 16px;
+    color: #575757;
+    width: 100%;
+    font-family: "Proxima Nova", sans-serif;
+}
+
+.std-select {
+    cursor: pointer;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    background: url(../images/select-arr.png) 100% 50% repeat-y #FFFFFF;
+}
+
+.std-select option.green {
+    color: green;
+}
+
+.std-select option.red {
+    color: red;
+}
+
+.std-textarea {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    height: 90px;
+}
+
+.std-counter {
+    position: relative;
+    height: 40px;
+    border: 1px solid #cecece;
+    font-size: 16px;
+    padding: 0 36px;
+    background: #ffffff;
+}
+
+.std-counter .decr,
+.std-counter .incr {
+    position: absolute;
+    top: 0;
+    height: 38px;
+    width: 39px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all ease .2s;
+}
+
+.std-counter .decr:hover,
+.std-counter .incr:hover {
+    background: #e9e9e9;
+}
+
+.std-counter .decr:active,
+.std-counter .incr:active {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+}
+
+.std-counter .decr {
+    left: 0;
+    border-right: 1px solid #cecece;
+}
+
+.std-counter .incr {
+    right: 0;
+    border-left: 1px solid #cecece;
+}
+
+.std-counter .incr:before,
+.std-counter .decr:before {
+    font-family: "FontAwesome", sans-serif;
+}
+
+.std-counter .decr:before {
+    content: "\f068";
+}
+
+.std-counter .incr:before {
+    content: "\f067";
+}
+
+.std-counter .incr.incr-max:before,
+.std-counter .decr.decr-min:before {
+    opacity: 0.5;
+}
+
+.std-counter input {
+    height: 38px;
+    width: 100%;
+    border: none;
+    text-align: center;
+    padding: 0 10px;
+    font-size: 16px;
+    color: #575757;
+}
+
+.std-counter.s {
+    height: 28px;
+    padding: 0 27px;
+}
+
+.std-counter.s input {
+    padding: 0 5px;
+}
+
+.std-counter.s input,
+.std-counter.s .decr,
+.std-counter.s .incr {
+    height: 26px;
+    font-size: 14px;
+}
+
+.std-counter.s .decr,
+.std-counter.s .incr {
+    width: 27px;
+    line-height: 26px;
+    font-size: 13px;
+}
+
+.element {
+    position: relative;
+    border-radius: 2px;
+    border: 1px solid #e1e1e1;
+    width: 100%;
+    font-size: 14px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.element.invalid {
+    background: #ffe0d7;
+}
+
+.element .error {
+    display: none;
+}
+
+.element .label {
+    position: absolute;
+    left: 12px;
+    font-size: 16px;
+    top: 14px;
+    color: #6e6e6e;
+    transition: all ease .2s;
+    z-index: 5;
+}
+
+.element.not-empty .label,
+.element.focus .label {
+    left: 10px;
+    top: 5px;
+    font-size: 13px;
+}
+
+.element input,
+.element textarea,
+.element select {
+    border: none;
+    position: relative;
+    z-index: 10;
+    height: 48px;
+    padding: 20px 10px 0 10px;
+    font-size: 15px;
+    background: none;
+    width: 100%;
+}
+
+.element textarea {
+    height: 100px;
+    padding-top: 30px;
+}
+
+.element.focus textarea {
+
+}
+
+.select-group {
+    padding-top: 6px;
+}
+
+.select-group span {
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
+    margin-right: 9px;
+    border: 1px solid #e1e1e1;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 16px;
+    transition: all ease .2s;
+    cursor: pointer;
+}
+
+.select-group span:last-child {
+    margin-right: 0;
+}
+
+.select-group span:hover {
+    border-color: #8e8e8e;
+}
+
+.select-group span.active {
+    color: #ffffff;
+    background: #ee7923;
+    border-color: #ee7923;
+}
+
+.select-group.color {
+    padding-top: 8px;
+}
+
+.select-group.color span {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    border: none;
+    margin-right: 14px;
+    padding: 0;
+}
+
+.select-group.color span.active {
+    box-shadow: 0 0 0 2px #bbbbbb;
+    border: 2px solid #fff;
+}
+
+.stars {
+    display: inline-block;
+}
+
+.stars .fa-star {
+    margin-right: 3px;
+    display: inline-block;
+    color: #d3d3d3;
+}
+
+.stars .fa-star-half:last-child,
+.stars .fa-star:last-child {
+    margin-right: 0;
+}
+
+.stars .fa-star-half,
+.stars .fa-star.full {
+    color: #fbd280;
+}
+
+.std-form {
+
+}
+
+.std-form .row .label {
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.std-form .row {
+    margin-bottom: 14px;
+}
+
+.std-form .error {
+    background: #ea6666;
+    padding: 0 10px;
+    color: #ffffff;
+    font-size: 13px;
+    text-align: left;
+}
+
+.std-form .form-errors .error {
+    margin-bottom: 10px;
+}
+
+.success-box {
+    display: none;
+    margin: 35px 0;
+    text-align: center;
+}
+
+.success-box .sb-title {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 13px;
+}
+
+.success-box .sb-desc {
+    font-size: 16px;
+    margin-bottom: 25px;
+    color: #727272;
+}
+
+.stars {
+    display: inline-block;
+}
+
+.stars div {
+    display: inline-block;
+}
+
+.stars div.full:before {
+    content: "\f005";
+}
+
+.stars div.half:before, .stars div.full:before {
+    color: #fbd280;
+}
+
+.stars div:before {
+    font-family: "FontAwesome",sans-serif;
+    color: #d2d2d2;
+    content: "\f005";
+}
+
+.ui-datepicker {
+    background: #FFFFFF;
+    padding: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.31);
+}
+
+.ui-datepicker th {
+    display: none;
+}
+
+.ui-datepicker td {
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    text-align: center;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.ui-datepicker td a {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    display: block;
+}
+
+.ui-datepicker td:hover{
+    background: #dcdcdc;
+}
+
+.ui-datepicker td.ui-datepicker-unselectable,
+.ui-datepicker td.ui-datepicker-unselectable:hover {
+    background: none;
+    color: #a6a6a6;
+}
+
+.ui-datepicker td.ui-datepicker-current-day a,
+.ui-datepicker td.ui-datepicker-current-day:hover a {
+    background: #0060c1;
+    color: #ffffff;
+}
+
+.ui-datepicker-header {
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 17px;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+    position: absolute;
+    top: 3px;
+    background: url(../images/calendar-arrs.png) no-repeat;
+    width: 9px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.ui-datepicker-prev {
+    left: 10px;
+}
+
+.ui-datepicker-next {
+    right: 10px;
+    background-position: -9px 0;
+}
+
+.ui-datepicker-prev:hover {
+    background-position: 0 -14px;
+}
+
+.ui-datepicker-next:hover {
+    background-position: -9px -14px;
+}
+.std-table {
+    margin: 0 0 40px 0;
+}
+
+.std-table caption {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.std-table th,
+.std-table td {
+    border: 1px solid #dddddd;
+    padding: 4px 10px;
+    background: #ffffff;
+}
+
+.std-table tr:first-child th,
+.std-table tr:first-child td {
+    background: #f6f6f6;
+    font-weight: 600;
+    color: #000000;
+    text-align: center;
+}
+
+.std-table tr:first-child th:first-child,
+.std-table tr:first-child td:first-child {
+    border-left: 1px solid #dddddd;
+}
+
+.std-table tr:first-child th:last-child,
+.std-table tr:first-child td:last-child {
+    border-right: 1px solid #dddddd;
+}
+
+.std-table tr th:first-child,
+.std-table tr td:first-child {
+    background: #f6f6f6;
+    font-weight: 600;
+    color: #000000;
+}
+
+.std-table tr th:first-child,
+.std-table tr td:first-child {
+    background: #f6f6f6;
+    font-weight: 600;
+    color: #000000;
+}

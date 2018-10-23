@@ -1,0 +1,109 @@
+<div class="popup-box popup-cart-form">
+    <div class="header2">
+        <div class="title"><i class="fa fa-shopping-cart"></i> В корзину</div>
+        <div class="desc"><?php echo $product->get('name') ?></div>
+    </div>
+    <div class="body std-form">
+        <div class="form-box type-box">
+            <input type="hidden" value="<?php echo $product->getId() ?>" name="product_id">
+            <div class="row">
+                <div class="label">Размер</div>
+                <?php
+                $html = '<select class="std-select2 js-size-select" name="size_id">';
+                foreach($product->getPlugin('size') as $size) {
+                    $html .= '<option value="' . $size->getId() . '">' . $size->get('name') . '</option>';
+                }
+                echo $html .= '<select>';
+                ?>
+            </div>
+            <div class="row">
+                <div class="label">Вкус</div>
+                <?php
+                $html = '<select class="std-select2 js-taste-select" name="taste_id">';
+                foreach($product->getPlugin('taste', array('inStock' => true)) as $taste) {
+                    $html .= '<option value="' . $taste->getId() . '">' . $taste->get('name') . '</option>';
+                }
+                echo $html .= '<select>';
+                ?>
+            </div>
+            <div class="row">
+                <div class="label">Количество</div>
+                <div class="std-counter">
+                    <input value="1" min="1" max="999" name="count" class="js-count">
+                    <div class="incr" title="В наличии больше нет"></div>
+                    <div class="decr"></div>
+                </div>
+
+                <span class="price"><span><?php echo $this->price($product->get('price')) ?></span> <i class="fa fa-ruble-sign"></i></span>
+            </div>
+            <div class="row" style="text-align: center;">
+                <div class="in-stock">
+                    <a class="btn cart-add js-cart-add" href="/cart/"><i class="fa fa-shopping-cart"></i> <span>Добавить в корзину</span></a>
+                </div>
+                <div class="not-in-stock">
+                    <a class="btn blue request-add js-request-add" href="/cart/"><i class="fa fa-shopping-cart"></i> Предзаказ (без предоплаты)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<style>
+		.popup-cart-form {
+			width: 400px;
+		}
+
+		.popup-cart-form .price {
+			font-weight: 700;
+			font-size: 28px;
+			margin-left: 10px;
+		}
+
+		.popup-cart-form .request-add,
+		.popup-cart-form .cart-add,
+		.popup-cart-form .cart-in {
+			display: block;
+			width: 100%;
+			margin-top: 20px;
+		}
+
+		.popup-cart-form .not-in-stock {
+			font-size: 15px;
+			text-align: center;
+			color: #cf5d5d;
+		}
+
+		.popup-cart-form .not-in-stock {
+			display: none;
+		}
+	</style>
+
+	<script>
+		var form = $('.popup-cart-form');
+
+		toCartForm(form, {
+			priceUpdate: function (resp) {
+				$('.price span', form).text($.aptero.price(resp.price * $('.js-count', form).val()));
+
+                var countEl = $('.js-count', form);
+
+				if (parseInt(resp.stock)) {
+                    countEl.attr('max', resp.stock).val(Math.min(resp.stock, countEl.val())).trigger('update');
+                    $('.js-count', form).attr('max', resp.stock).trigger('update');
+					$('.in-stock', form).css({display: 'block'});
+					$('.not-in-stock', form).css({display: 'none'});
+				} else {
+                    countEl.attr('max', 999).trigger('update');
+                    $('.js-count', form).attr('max', 999).trigger('update');
+					$('.in-stock', form).css({display: 'none'});
+					$('.not-in-stock', form).css({display: 'block'});
+				}
+			},
+			toCart: function () {
+				$('.cart-add', form).addClass('in-cart').removeClass('cart-add').html('<i class="fa fa-shopping-cart"></i> Оформить заказ');
+			},
+			typeChange: function () {
+				$('.in-cart', form).addClass('cart-add').removeClass('in-cart').html('<i class="fa fa-shopping-cart"></i> Добавить в корзину');
+			}
+		});
+	</script>
+</div>

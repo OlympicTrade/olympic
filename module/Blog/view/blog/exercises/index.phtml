@@ -1,0 +1,85 @@
+<?php echo $this->headerBlack() ?>
+
+<div class="block blog-block blog-exercises">
+    <div class="wrapper">
+        <div class="container">
+            <div class="col-left">
+                <div class="exercises-list">
+                    <div class="filters">
+                        <?php
+                        $filter = function($typeId) {
+                            $types = \Blog\Model\ExerciseTypes::getEntityCollection();
+                            $types->select()->where(['type_id' => $typeId]);
+
+                            $html =
+                                '<div class="widget">'
+                                .'<div class="title">' . \Blog\Model\ExerciseTypes::$types[$typeId] . '</div>';
+
+                            foreach ($types as $type) {
+                                $html .=
+                                    '<label><input type="checkbox" name="type[' . $typeId . '][]" value="' . $type->getId() . '">' . $type['name'] . '</label>';
+                            }
+
+                            $html .=
+                                '</div>';
+
+                            return $html;
+                        };
+
+                        echo $filter(\Blog\Model\ExerciseTypes::TYPE_MUSCLES);
+                        echo $filter(\Blog\Model\ExerciseTypes::TYPE_INVENTORY);
+                        echo $filter(\Blog\Model\ExerciseTypes::TYPE_MECHANICS);
+                        echo $filter(\Blog\Model\ExerciseTypes::TYPE_TYPE);
+                        ?>
+                    </div>
+                    <div class="list">
+                        <?php echo $this->exercisesList($exercises) ?>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="col-right blog-sidebar">
+                <div class="slider">
+                    <?php echo
+                        $this->blogWidgets('articles', ['articles' => $wArticles])
+                        .$this->blogWidgets('products', ['products' => $wProducts]);
+                    ?>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var sidebar = $('.blog-sidebar').sidebar({
+        margin: 20,
+        nav: $('#nav')
+    });
+
+    var paginator = $('.blog-articles .articles-list').paginator({
+        url: '/blog/',
+        urlParams: {}
+    });
+
+    paginator.on('update', function() {
+        sidebar.update();
+    });
+
+    var box = $('.exercises-list');
+    var filters = $('.filters', box);
+    var list = $('.list', box);
+
+
+    $('input', filters).on('change', function() {
+        $.ajax({
+            url: '/blog/exercises/',
+            method: 'post',
+            data: $.aptero.serializeArray(filters),
+            success: function(resp) {
+                list.empty().html(resp.html);
+                sidebar.update();
+            }
+        });
+    });
+</script>

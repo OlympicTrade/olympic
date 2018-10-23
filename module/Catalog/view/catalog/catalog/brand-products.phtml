@@ -1,0 +1,40 @@
+<?php echo $this->header(['header' => '']) ?>
+
+    <div class="block">
+        <div class="wrapper">
+            <div class="container products-list-main">
+                <div class="content">
+                    <div class="products-list cols-4">
+                        <?php echo $this->productsList($products) ?>
+                    </div>
+                </div>
+                <form class="sidebar filters">
+                    <h1><?php echo $brand->get('name') ?></h1>
+
+                    <input class="update-url" type="hidden" value="<?php echo $brand->getUrl() ?>products/">
+                    
+                    <?php // echo $this->catalogWidgets('catalog', ['category' => $category]) ?>
+
+                    <div class="update-box">
+                        <?php echo $this->catalogWidgets('price',  ['data' => $filters['price'], 'min' => $filtersData['priceMinMax']['min'], 'max' => $filtersData['priceMinMax']['max']]) ?>
+                        <?php echo $this->catalogWidgets('sort',   ['data' => $filters['sort']]) ?>
+                        <?php //echo $this->catalogWidgets('brands', ['data' => $filters['brands'], 'brands' => $brands]) ?>
+                    </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+<?php if($brand->get('text')) { ?>
+    <div class="text-block block gray">
+        <div class="wrapper">
+            <div class="text">
+                <?php echo $brand->get('text') ?>
+                <div class="overlay"></div>
+            </div>
+
+            <span class="readmore">Читать далее</span>
+        </div>
+    </div>
+<?php } ?>

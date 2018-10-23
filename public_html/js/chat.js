@@ -1,0 +1,3 @@
+//VK Feedback
+$(function() {
+});

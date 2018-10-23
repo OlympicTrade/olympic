@@ -1,0 +1,213 @@
+<?php echo $this->header(['header' => '']) ?>
+
+<?php
+$inStock = '';
+$notInStock = '';
+if($product->get('stock')) {
+    $inStock = ' style="display: block"';
+} else {
+    $notInStock = ' style="display: block"';
+}
+
+$discount = $product->get('discount');
+if($discount) {
+    if($discount <= 10) {
+        $color = 'yellow';
+    } elseif($discount <= 20) {
+        $color = 'orange';
+    } else {
+        $color = 'red';
+    }
+
+    $eventsHtml =
+        '<div class="events">'
+            .'<div class="item ' . $color . '">-' . $discount . '%</div>'
+        .'</div>';
+} else {
+    $eventsHtml = '';
+}
+
+$images = $product->getPlugin('images')->load();
+$attrs = $product->getPlugin('attrs');
+$brand = $product->getPlugin('brand');
+$catalog = $product->getPlugin('catalog')->load();
+
+$inCompare = $product->inCompare();
+?>
+
+<div class="block">
+    <div class="wrapper">
+        <div class="product-view">
+            <div class="product">
+				<div class="images<?php echo $images->count() ? ' gl' : '' ?>">
+                    <?php
+                    $html = '<div class="thumbs' . ($images->count() ? '' : ' hide') . '">';
+
+                    $defaultImg = '';
+                    if(!$images->count()) {
+                        $html .=
+                            '<a href="' . $product->getPlugin('image')->getImage('m') . '" data-zoom="' . $product->getPlugin('image')->getImage('hr') . '" class="thumb hide">'
+                                .'<img src="' . $product->getPlugin('image')->getImage('s') . '">'
+                            .'</a>';
+                        $defaultImg = $product->getPlugin('image')->getImage('m');
+                    } else {
+                        foreach ($product->getPlugin('images')->load() as $image) {
+                            $html .=
+                                '<a href="' . $image->getImage('m') . '" class="thumb hide" data-zoom="' . $image->getImage('hr') . '" data-taste="' . $image->get('taste_id') . '" data-size="' . $image->get('size_id') . '">'
+                                    .'<img src="' . $image->getImage('s') . '">'
+                                .'</a>';
+                            if(!$defaultImg) {$defaultImg = $image->getImage('m');}
+                        }
+                    }
+
+                    $html .=
+                        '</div>'
+                        .'<div class="pic hide" data-taste="" data-size="">'
+                            .'<img src="' . $defaultImg . '" data-zoom-image="" alt="' . $product->get('name') . '">'
+                        .'</div>';
+
+                    echo $html;
+                    ?>
+
+                    <?php echo $eventsHtml ?>
+                </div>
+                <div class="info">
+                    <div class="name"><?php echo $product->getPlugin('brand')->get('name') . ' ' . $product->get('name') ?></div>
+
+                    <?php if($product->get('subname')) { ?>
+                        <h2 class="subname"><?php echo $product->get('subname') ?></h2>
+                    <?php } ?>
+
+                    <div class="price-box">
+                        <span class="price"><span><?php echo $this->price($product->get('price')) ?></span> <i class="fa fa-ruble-sign"></i></span>
+                        <?php if($product->get('discount')) { ?>
+                            <span class="price-old"><span><?php echo $this->price($product->get('price_old')) ?></span> <i class="fa fa-ruble-sign"></i></span>
+                        <?php } ?>
+                    </div>
+
+                    <div class="row reviews">
+                        <div class="label">Отзывы</div>
+                        <?php
+                        echo $this->stars($product->get('stars'));
+                        if($product->get('reviews')) {
+                            echo ' <a href="' . $product->getUrl() . 'reviews/#product-tabs">(' . $product->get('reviews') . ')</a>';
+                        } ?>
+
+                        <div class="brand">
+                            <div class="label">Бренд</div>
+                            <a <?php echo $brand->get('html') ? 'class="popup"' : '' ?> href="<?php echo $brand->getUrl() ?>"><i class="icon id-<?php echo $brand->getPlugin('country')->getId() ?>"></i> <span><?php echo $brand->get('name') ?></span></a>
+                        </div>
+                    </div>
+
+                    <div class="type-box">
+                        <input type="hidden" value="<?php echo $product->getId() ?>" name="product_id">
+                        <?php
+                        $propName1 = $attrs->get('prop_name_1') ? $attrs->get('prop_name_1') : 'Размер';
+                        echo $this->cartTypeBoxSelect('size_id', $product->getPlugin('size'), $propName1, $product->get('size_id'));
+
+                        $propName2 = $attrs->get('prop_name_2') ? $attrs->get('prop_name_2') : 'Вкус';
+                        echo$this->cartTypeBoxSelect('taste_id', $product->getPlugin('taste'), $propName2, $product->get('taste_id'));
+                        ?>
+
+                        <div class="order">
+                            <div class="stock-i">
+                                <div class="std-counter">
+                                    <input value="1" min="1" max="999" name="count" class="js-count">
+                                    <div class="incr"></div>
+                                    <div class="decr"></div>
+                                </div>
+                                <a href="/cart/" class="btn orange cart-add js-cart-add"><i class="fa fa-shopping-cart"></i> <span>В корзину</span></a>
+                                <a href="/compare/" data-pid="<?php echo $product->getId() ?>" data-cid="<?php echo $catalog->getId() ?>" class="btn compare-add <?php echo $inCompare ? 'active' : '' ?>"><i class="fa fa-balance-scale"></i> <?php echo $inCompare ? 'К сравнению' : 'Сравнить' ?></a>
+                            </div>
+                            <div class="stock-o">
+                                <div class="not-in-stock">Нет в наличии</div>
+                                <span class="btn blue request-add js-request-add">Предзаказ<span>(Без предоплаты)</span></span>
+                                <a href="/compare/" data-pid="<?php echo $product->getId() ?>" data-cid="<?php echo $catalog->getId() ?>" class="btn compare-add <?php echo $inCompare ? 'active' : '' ?>"><i class="fa fa-balance-scale"></i> <?php echo $inCompare ? 'К сравнению' : 'Сравнить' ?></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="delivery">
+                        <a href="/delivery/" class="popup">Узнать об оплате и доставке</a>
+                    </div>
+                </div>
+            </div>
+
+            <?php
+            $html = '';
+            foreach($product->getPlugin('recommended', ['auto' => true]) as $item) {
+                $stock = $item->get('stock');
+
+                $html .=
+                    '<div class="item">'
+                        .'<a href="' . $item->getUrl() . '" class="pic">'
+                            .'<img src="' . $item->getPlugin('image')->getImage('s') . '" alt="' . $item->get('name') . '">'
+                        .'</a>'
+                        .'<div class="info">'
+                            .'<a href="' . $item->getUrl() . '" class="name">' . $item->get('name') . '</a>'
+
+                            .'<div class="row">'
+                                .'<a href="' . $item->getPlugin('brand')->getUrl() . '" class="brand">' . $item->getPlugin('brand')->get('name') . '</a>'
+                                . $this->stars($item->get('stars'))
+                            .'</div>'
+
+                            .'<div class="order">'
+                                .'<div class="price-box">'
+                                    .'<span class="price"><span>' . $this->price($item->get('price')) . '</span> <i class="fa fa-ruble-sign"></i></span>'
+                                    .($product->get('discount') ? '<span class="price-old"><span>' . $this->price($item->get('price_old')) . '</span> <i class="fa fa-ruble-sign"></i></span>' : '')
+                                .'</div>'
+
+                                .'<span href="/order/cart-form/?pid=' . $item->getId() . '" class="btn' . ($stock ? ' orange' : '') . ' popup">' . ($stock ? 'В корзину' : 'Предзаказ') . '</span>'
+                            .'</div>'
+                        .'</div>'
+                    .'</div>';
+            }
+
+            if($html) {
+                echo
+                '<div class="recommended">'
+                    .'<div class="header">Вас может заинтересовать</div>'
+                   .'<div class="list">'
+                        . $html
+                   .'</div>'
+               .'</div>';
+            }
+            ?>
+            <div class="clear"></div>
+        </div>
+
+    </div>
+</div>
+
+<?php include('product-tabs.phtml') ?>
+
+<?php
+$jsonLd = [
+    '@context'     => 'http://schema.org',
+    '@type'        => 'Product',
+    'description'  => $product->get('preview'),
+    'name'         => $product->get('name'),
+    'brand' => (object) [
+        '@type' => 'Brand',
+        'name'  =>  $product->getPlugin('brand')->get('name')
+    ],
+    'offers'=> (object) [
+        '@type'  => 'Offer',
+        'price'  => ($product->get('price')),
+        'priceCurrency'  => 'RUB',
+        'availability' => $product->get('count') ? 'http://schema.org/InStock' : 'http://schema.org/OutOfStock',
+    ]
+];
+
+if($product->get('stars')) {
+    $jsonLd['aggregateRating'] = (object) array(
+        '@type'		  => 'AggregateRating',
+        'ratingValue' => $product->get('stars'),
+        'reviewCount' => $product->get('reviews')
+    );
+}
+?>
+
+<script type="application/ld+json">
+<?php echo \Zend\Json\Json::encode((object) $jsonLd); ?>
+</script>

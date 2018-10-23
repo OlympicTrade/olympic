@@ -1,0 +1,28 @@
+<?php echo $this->header() ?>
+<div class="block">
+    <div class="wrapper">
+        <?php echo $this->userMenu(); ?>
+        <?php echo $this->ordersList($this->orders); ?>
+
+        <div class="orders-list">
+            
+        </div>
+    </div>
+</div>
+
+<script>
+$('.order-list .header').on('click', function() {
+    var order = $(this).closest('.order');
+    var body = $('.body', order);
+    var id = order.attr('data-id');
+    
+    if(!body.text()) {
+        $.aptero.loadingHtml(body);
+        body.load('/order/cart/' + id + '/', function() {
+            body.slideDown(200);
+        });
+    } else {
+        body.slideToggle(200);
+    }
+});
+</script>

@@ -1,0 +1,142 @@
+<?php
+$this->generateMeta();
+
+$version = $settings->get('html_css_js_version');
+
+$this->headLink()
+    ->prependStylesheet('/css/compress-' . $version . '.css')
+    ->prependStylesheet('//fonts.googleapis.com/css?family=Roboto+Condensed:400,700&subset=cyrillic');
+
+$this->headScript()
+    ->setAllowArbitraryAttributes(true)
+    ->prependFile('/js/compress-' . $version . '.js')
+    ->prependFile('//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js')
+    ->prependFile('//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js')
+
+    ->prependFile('//use.fontawesome.com/releases/v5.0.6/js/all.js', null, ['async' => true]);
+
+if(MODE != 'dev') {
+    $this->headScript()
+        ->prependFile('/js/counters/chat.js', null, ['async' => true])
+        ->prependFile('/js/counters/yandex.js', null, ['async' => true])
+        ->prependFile('/js/counters/google.js', null, ['async' => true]);
+}
+?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle() . "\n";
+    echo $this->headMeta()  . "\n";
+    echo $this->headLink()  . "\n";
+    echo $this->headScript()  . "\n";
+    echo $this->settings->get('html_head');
+    ?>
+</head>
+<body>
+<?php /*
+<div style="padding: 100px; text-align: center;">
+    <div class="tooltip" data-mode="above" data-tooltip="Больше нет в наличии">Odio nostrud</div>
+</div>
+*/ ?>
+<div class="block" id="header">
+    <div class="wrapper">
+        <a href="/" class="logo" aria-label="Лого"></a>
+
+        <div class="mid">
+            <div class="info">
+                <div class="item delivery"><i class="fa fa-truck"></i> <a href="/delivery/">Доставка и оплата</a></div>
+                <div class="item">
+                    <i class="fa fa-map-marker-alt"></i>
+                    <a href="/regions/" class="popup"><?php echo \Delivery\Model\Delivery::getInstance()->getCity()->get('name') ?></a>
+                </div>
+                <div class="item worktime"><i class="fa fa-question"></i> <a href="/order/order-status/" class="popup">Что с моим заказом?</a></div>
+                <div class="item"><i class="fa fa-phone"></i> <?php echo $contacts->get('phone_1') ?></div>
+            </div>
+            <form action="/catalog/search/" class="search">
+                <input class="std-input2 query" type="text" name="query">
+                <button class="btn black"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="menu">
+            <a href="/delivery/" class="item delivery">
+                <div class="icon"></div>
+                <span>Доставка</span>
+            </a>
+
+            <a href="/compare/" class="item compare">
+                <div class="icon">
+                    <div class="counter compare-count"></div>
+                </div>
+                <span>Сравнить</span>
+            </a>
+
+            <?php if(\User\Service\AuthService::hasUser()) { ?>
+                <a href="/user/" class="item user">
+                    <div class="icon"></div>
+                    <span>Профиль</span>
+                </a>
+            <?php } else { ?>
+                <a href="/user/" class="item user popup">
+                    <div class="icon"></div>
+                    <span>Войти</span>
+                </a>
+            <?php } ?>
+
+            <a href="/cart/" class="item cart" aria-label="Корзина">
+                <div class="icon">
+                    <div class="counter cart-count"></div>
+                </div>
+                <span>Корзина</span>
+            </a>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="nav-box">
+    <div class="block" id="nav">
+        <div class="wrapper">
+            <a href="/" class="logo"></a>
+            <div class="menu">
+                <ul class="catalog">
+                <?php echo $this->catalogMenu(['sub' => false, 'ul' => false]) ?>
+                    <li class="event"><a href="/catalog/event/">Товары со скидкой</a></li>
+                </ul>
+                <?php /*<a class="blog" href="/blog/">Блог</a>*/ ?>
+            </div>
+
+            <div class="menu2">
+                <a href="/delivery/" class="item delivery" aria-label="Доставка">
+                    <div class="icon"></div>
+                </a>
+
+                <a href="/compare/" class="item compare" aria-label="Сравнить товары">
+                    <div class="icon">
+                        <div class="counter compare-count"></div>
+                    </div>
+                </a>
+
+                <?php if(\User\Service\AuthService::hasUser()) { ?>
+                    <a href="/user/" class="item user" aria-label="Лого">
+                        <div class="icon"></div>
+                    </a>
+                <?php } else { ?>
+                    <a href="/user/" class="item user popup">
+                        <div class="icon"></div>
+                    </a>
+                <?php } ?>
+
+                <a href="/cart/" class="item cart" aria-label="Корзина">
+                    <div class="icon">
+                        <div class="counter cart-count"></div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

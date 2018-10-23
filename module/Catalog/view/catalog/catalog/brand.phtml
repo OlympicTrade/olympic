@@ -1,0 +1,13 @@
+<div class="brand-view">
+    <?php
+    echo $this->header(['header' => $brand->get('name')]);
+    echo
+        '<div class="products-link-top">'
+            .'<a class="btn orange small" href="' . $brand->getUrl() . 'products/">Показать товары ' . $brand->get('name') . '</a>'
+        .'</div>'
+        .$brand->get('html')
+        .'<div class="products-link-bot">'
+            .'<a class="btn orange small" href="' . $brand->getUrl() . 'products/">Показать товары ' . $brand->get('name') . '</a>'
+        .'</div>';
+    ?>
+</div>
