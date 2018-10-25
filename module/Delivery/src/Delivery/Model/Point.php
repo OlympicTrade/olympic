@@ -27,6 +27,13 @@ class Point extends Entity
             'index_express'     => [],
             'glavpunkt'         => [],
         ]);
+
+        $this->addPlugin('city', function($model) {
+            $city = new City();
+            $city->setId($model->get('city_id'));
+
+            return $city;
+        });
     }
 
     public function getFreeDeliveryPrice()
@@ -38,15 +45,12 @@ class Point extends Entity
         return ceil($this->get('price') / 100) * 1000;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getDeliveryDate()
     {
-        $date = new \DateTime();
-        $date->modify('+' . $this->get('delay') . ' days');
+        $delay = $this->getPlugin('city')->getDeliveryDelay(['type' => Delivery::TYPE_PICKUP]);
+        $dt = (new \DateTime())->modify('+' . $delay . ' days');
 
-        return $date;
+        return $dt;
     }
 
     public function isMoscow()
